@@ -1,0 +1,11 @@
+button.btn-danger {
+ float: right;
+}
+
+li.item span{
+ float: left;
+}
+
+li.list-group-item.item.mt-2.border.lineThrough span {
+    text-decoration-line: line-through;
+}
