@@ -1,0 +1,8 @@
+<div>
+ <button (click)="showComponent('P')">A</button>
+ <button (click)="showComponent('Q')">B</button>
+</div>
+
+<!-- Conditional rendering -->
+<app-acomponent *ngIf="activeComponent === 'P'"></app-acomponent>
+<app-bcomponent *ngIf="activeComponent === 'Q'"></app-bcomponent>

@@ -6,6 +6,7 @@ import { OnInit } from '@angular/core';
 import { MatSort, MatSortModule } from '@angular/material/sort'; // Imported MatSort and MatSortModule
 import { ViewChild } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
+import { LinkComponent } from "./link/link.component";
 
 // Interface for the data structure (remains the same)
 export interface CertificationData {
@@ -84,6 +85,8 @@ const ELEMENT_DATA: CertificationData[] = [
     CommonModule,
     MatTableModule,
     MatSortModule // Added MatSortModule here
+    ,
+    LinkComponent
   ]
 })
 export class AppComponent implements OnInit, AfterViewInit { // Implemented AfterViewInit
