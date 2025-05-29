@@ -1,0 +1,199 @@
+<div class="p-4 bg-gray-100 min-h-screen font-sans">
+  <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Headcount by CM/PM</h1>
+
+  <div class="overflow-x-auto rounded-lg shadow-lg">
+    <table mat-table [dataSource]="dataSource" class="w-full min-w-max" matSort> <ng-container
+        matColumnDef="contractWarrantyHeader">
+        <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2"
+          class="text-left bg-blue-700 text-white p-3 border-r border-gray-300 sticky left-0 z-10"
+          mat-sort-header="contractWarranty"> Contract/Warranty
+        </th>
+      </ng-container>
+
+      <ng-container matColumnDef="emptyHeaderForContractWarranty">
+        <th mat-header-cell *matHeaderCellDef class="hidden-header-cell"></th>
+      </ng-container>
+
+      <ng-container matColumnDef="cy25q1">
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]="4"
+          class="text-center bg-blue-600 text-white p-3 border-r border-gray-300"> CY25Q1 </th>
+      </ng-container>
+      <ng-container matColumnDef="cy25q2">
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]="4"
+          class="text-center bg-blue-600 text-white p-3 border-r border-gray-300"> CY25Q2 </th>
+      </ng-container>
+      <ng-container matColumnDef="cy25q3">
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]="4"
+          class="text-center bg-blue-600 text-white p-3 border-r border-gray-300"> CY25Q3 </th>
+      </ng-container>
+      <ng-container matColumnDef="cy25q4">
+        <th mat-header-cell *matHeaderCellDef [attr.colspan]="4"
+          class="text-center bg-blue-600 text-white p-3 border-r border-gray-300"> CY25Q4 </th>
+      </ng-container>
+
+      <ng-container matColumnDef="cy25q1_cmHours">
+        <th mat-header-cell *matHeaderCellDef
+          class="text-center bg-blue-500 text-white p-2 border-r border-gray-300 min-w-[120px]"
+          mat-sort-header="cy25q1_cmHours"> CM Hours </th>
+      </ng-container>
+      <ng-container matColumnDef="cy25q1_cmHc">
+        <th mat-header-cell *matHeaderCellDef
+          class="text-center bg-blue-500 text-white p-2 border-r border-gray-300 min-w-[120px]"
+          mat-sort-header="cy25q1_cmHc"> CM HC </th>
+      </ng-container>
+      <ng-container matColumnDef="cy25q1_pmHours">
+        <th mat-header-cell *matHeaderCellDef
+          class="text-center bg-blue-500 text-white p-2 border-r border-gray-300 min-w-[120px]"
+          mat-sort-header="cy25q1_pmHours"> PM Hours </th>
+      </ng-container>
+      <ng-container matColumnDef="cy25q1_pmHc">
+        <th mat-header-cell *matHeaderCellDef
+          class="text-center bg-blue-500 text-white p-2 border-r border-gray-300 min-w-[120px]"
+          mat-sort-header="cy25q1_pmHc"> PM HC </th>
+      </ng-container>
+
+      <ng-container matColumnDef="cy25q2_cmHours">
+        <th mat-header-cell *matHeaderCellDef
+          class="text-center bg-blue-500 text-white p-2 border-r border-gray-300 min-w-[120px]"
+          mat-sort-header="cy25q2_cmHours"> CM Hours </th>
+      </ng-container>
+      <ng-container matColumnDef="cy25q2_cmHc">
+        <th mat-header-cell *matHeaderCellDef
+          class="text-center bg-blue-500 text-white p-2 border-r border-gray-300 min-w-[120px]"
+          mat-sort-header="cy25q2_cmHc"> CM HC </th>
+      </ng-container>
+      <ng-container matColumnDef="cy25q2_pmHours">
+        <th mat-header-cell *matHeaderCellDef
+          class="text-center bg-blue-500 text-white p-2 border-r border-gray-300 min-w-[120px]"
+          mat-sort-header="cy25q2_pmHours"> PM Hours </th>
+      </ng-container>
+      <ng-container matColumnDef="cy25q2_pmHc">
+        <th mat-header-cell *matHeaderCellDef
+          class="text-center bg-blue-500 text-white p-2 border-r border-gray-300 min-w-[120px]"
+          mat-sort-header="cy25q2_pmHc"> PM HC </th>
+      </ng-container>
+
+      <ng-container matColumnDef="cy25q3_cmHours">
+        <th mat-header-cell *matHeaderCellDef
+          class="text-center bg-blue-500 text-white p-2 border-r border-gray-300 min-w-[120px]"
+          mat-sort-header="cy25q3_cmHours"> CM Hours </th>
+      </ng-container>
+      <ng-container matColumnDef="cy25q3_cmHc">
+        <th mat-header-cell *matHeaderCellDef
+          class="text-center bg-blue-500 text-white p-2 border-r border-gray-300 min-w-[120px]"
+          mat-sort-header="cy25q3_cmHc"> CM HC </th>
+      </ng-container>
+      <ng-container matColumnDef="cy25q3_pmHours">
+        <th mat-header-cell *matHeaderCellDef
+          class="text-center bg-blue-500 text-white p-2 border-r border-gray-300 min-w-[120px]"
+          mat-sort-header="cy25q3_pmHours"> PM Hours </th>
+      </ng-container>
+      <ng-container matColumnDef="cy25q3_pmHc">
+        <th mat-header-cell *matHeaderCellDef
+          class="text-center bg-blue-500 text-white p-2 border-r border-gray-300 min-w-[120px]"
+          mat-sort-header="cy25q3_pmHc"> PM HC </th>
+      </ng-container>
+
+      <ng-container matColumnDef="cy25q4_cmHours">
+        <th mat-header-cell *matHeaderCellDef
+          class="text-center bg-blue-500 text-white p-2 border-r border-gray-300 min-w-[120px]"
+          mat-sort-header="cy25q4_cmHours"> CM Hours </th>
+      </ng-container>
+      <ng-container matColumnDef="cy25q4_cmHc">
+        <th mat-header-cell *matHeaderCellDef
+          class="text-center bg-blue-500 text-white p-2 border-r border-gray-300 min-w-[120px]"
+          mat-sort-header="cy25q4_cmHc"> CM HC </th>
+      </ng-container>
+      <ng-container matColumnDef="cy25q4_pmHours">
+        <th mat-header-cell *matHeaderCellDef
+          class="text-center bg-blue-500 text-white p-2 border-r border-gray-300 min-w-[120px]"
+          mat-sort-header="cy25q4_pmHours"> PM Hours </th>
+      </ng-container>
+      <ng-container matColumnDef="cy25q4_pmHc">
+        <th mat-header-cell *matHeaderCellDef
+          class="text-center bg-blue-500 text-white p-2 border-r border-gray-300 min-w-[120px]"
+          mat-sort-header="cy25q4_pmHc"> PM HC </th>
+      </ng-container>
+
+
+      <ng-container matColumnDef="contractWarranty_cell">
+        <td mat-cell *matCellDef="let element"
+          class="text-left p-3 border-b border-gray-200 bg-white sticky left-0 z-0 font-medium text-gray-700">
+          {{element.contractWarranty}} </td>
+      </ng-container>
+      <ng-container matColumnDef="cy25q1_cmHours_cell">
+        <td mat-cell *matCellDef="let element" class="text-center p-3 border-b border-r border-gray-200 min-w-[120px]">
+          {{element.cy25q1.cmHours}} </td>
+      </ng-container>
+      <ng-container matColumnDef="cy25q1_cmHc_cell">
+        <td mat-cell *matCellDef="let element" class="text-center p-3 border-b border-r border-gray-200 min-w-[120px]">
+          {{element.cy25q1.cmHc}} </td>
+      </ng-container>
+      <ng-container matColumnDef="cy25q1_pmHours_cell">
+        <td mat-cell *matCellDef="let element" class="text-center p-3 border-b border-r border-gray-200 min-w-[120px]">
+          {{element.cy25q1.pmHours}} </td>
+      </ng-container>
+      <ng-container matColumnDef="cy25q1_pmHc_cell">
+        <td mat-cell *matCellDef="let element" class="text-center p-3 border-b border-r border-gray-200 min-w-[120px]">
+          {{element.cy25q1.pmHc}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cy25q2_cmHours_cell">
+        <td mat-cell *matCellDef="let element" class="text-center p-3 border-b border-r border-gray-200 min-w-[120px]">
+          {{element.cy25q2.cmHours}} </td>
+      </ng-container>
+      <ng-container matColumnDef="cy25q2_cmHc_cell">
+        <td mat-cell *matCellDef="let element" class="text-center p-3 border-b border-r border-gray-200 min-w-[120px]">
+          {{element.cy25q2.cmHc}} </td>
+      </ng-container>
+      <ng-container matColumnDef="cy25q2_pmHours_cell">
+        <td mat-cell *matCellDef="let element" class="text-center p-3 border-b border-r border-gray-200 min-w-[120px]">
+          {{element.cy25q2.pmHours}} </td>
+      </ng-container>
+      <ng-container matColumnDef="cy25q2_pmHc_cell">
+        <td mat-cell *matCellDef="let element" class="text-center p-3 border-b border-r border-gray-200 min-w-[120px]">
+          {{element.cy25q2.pmHc}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cy25q3_cmHours_cell">
+        <td mat-cell *matCellDef="let element" class="text-center p-3 border-b border-r border-gray-200 min-w-[120px]">
+          {{element.cy25q3.cmHours}} </td>
+      </ng-container>
+      <ng-container matColumnDef="cy25q3_cmHc_cell">
+        <td mat-cell *matCellDef="let element" class="text-center p-3 border-b border-r border-gray-200 min-w-[120px]">
+          {{element.cy25q3.cmHc}} </td>
+      </ng-container>
+      <ng-container matColumnDef="cy25q3_pmHours_cell">
+        <td mat-cell *matCellDef="let element" class="text-center p-3 border-b border-r border-gray-200 min-w-[120px]">
+          {{element.cy25q3.pmHours}} </td>
+      </ng-container>
+      <ng-container matColumnDef="cy25q3_pmHc_cell">
+        <td mat-cell *matCellDef="let element" class="text-center p-3 border-b border-r border-gray-200 min-w-[120px]">
+          {{element.cy25q3.pmHc}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cy25q4_cmHours_cell">
+        <td mat-cell *matCellDef="let element" class="text-center p-3 border-b border-r border-gray-200 min-w-[120px]">
+          {{element.cy25q4.cmHours}} </td>
+      </ng-container>
+      <ng-container matColumnDef="cy25q4_cmHc_cell">
+        <td mat-cell *matCellDef="let element" class="text-center p-3 border-b border-r border-gray-200 min-w-[120px]">
+          {{element.cy25q4.cmHc}} </td>
+      </ng-container>
+      <ng-container matColumnDef="cy25q4_pmHours_cell">
+        <td mat-cell *matCellDef="let element" class="text-center p-3 border-b border-r border-gray-200 min-w-[120px]">
+          {{element.cy25q4.pmHours}} </td>
+      </ng-container>
+      <ng-container matColumnDef="cy25q4_pmHc_cell">
+        <td mat-cell *matCellDef="let element" class="text-center p-3 border-b border-r border-gray-200 min-w-[120px]">
+          {{element.cy25q4.pmHc}} </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="firstHeaderRowCols"></tr>
+      <tr mat-header-row *matHeaderRowDef="secondHeaderRowCols"></tr>
+
+      <tr mat-row *matRowDef="let row; columns: dataColumns;"></tr>
+    </table>
+  </div>
+</div>
