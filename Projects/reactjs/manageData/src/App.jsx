@@ -1,4 +1,6 @@
+import React, { useState, useMemo } from "react";
 import "./App.css";
+
 import fakeData from "./userData";
 import { FixedSizeList as List } from "react-window";
 
@@ -28,8 +30,8 @@ const cellStyle = {
 };
 
 // Row for virtualized list
-const Row = ({ index, style }) => {
-  const user = fakeData[index];
+const Row = ({ index, style, data }) => {
+  const user = data[index];
   return (
     <div style={{ ...style, display: "flex" }}>
       <div style={{ ...cellStyle, ...columnStyles.id }}>{user.id}</div>
@@ -43,10 +45,38 @@ const Row = ({ index, style }) => {
 };
 
 function App() {
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredData = useMemo(() => {
+    if (!searchTerm.trim()) return fakeData;
+    const lower = searchTerm.toLowerCase();
+    return fakeData.filter(
+      (user) =>
+        user.name.toLowerCase().includes(lower) ||
+        user.city.toLowerCase().includes(lower) ||
+        user.status.toLowerCase().includes(lower)
+    );
+  }, [searchTerm]);
+
+
   return (
     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif", maxWidth: "800px", margin: "auto" }}>
       <h2>Virtual Scroll Table</h2>
-
+      {/* 🔍 Search Box */}
+      <input
+        type="text"
+        placeholder="Search by name, city, or status"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        style={{
+          marginBottom: "10px",
+          padding: "8px",
+          width: "100%",
+          fontSize: "16px",
+          boxSizing: "border-box",
+        }}
+      />
       {/* Table Header */}
       <div style={{ display: "flex" }}>
         <div style={{ ...headerStyle, ...columnStyles.id }}>ID</div>
@@ -58,14 +88,19 @@ function App() {
       </div>
 
       {/* Virtual Scroll List */}
-      <List
-        height={400}
-        itemCount={fakeData.length}
-        itemSize={50}
-        width="100%"
-      >
-        {Row}
-      </List>
+      {filteredData.length > 0 ? (
+        <List
+          height={400}
+          itemCount={filteredData.length}
+          itemSize={50}
+          width="100%"
+          itemData={filteredData}
+        >
+          {Row}
+        </List>
+      ) : (
+        <p style={{ padding: "20px", color: "gray" }}>No matching records found.</p>
+      )}
     </div>
   );
 }

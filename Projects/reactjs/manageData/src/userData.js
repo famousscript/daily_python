@@ -1,7 +1,7 @@
 // generateData.js
 import { faker } from '@faker-js/faker';
 
-const generateFakeUsers = (count = 1000) => {
+const generateFakeUsers = (count = 100000) => {
  const users = [];
  for (let i = 1; i <= count; i++) {
   users.push({
