@@ -6,7 +6,8 @@ import { OnInit } from '@angular/core';
 import { MatSort, MatSortModule } from '@angular/material/sort'; // Imported MatSort and MatSortModule
 import { ViewChild } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { LinkComponent } from "./link/link.component";
+import { CertificationTableComponent } from "./crttable/certification-table.component";
+
 
 // Interface for the data structure (remains the same)
 export interface CertificationData {
@@ -84,65 +85,10 @@ const ELEMENT_DATA: CertificationData[] = [
   imports: [
     CommonModule,
     MatTableModule,
-    MatSortModule // Added MatSortModule here
-    ,
-    LinkComponent
+    MatSortModule,
+    CertificationTableComponent
   ]
 })
-export class AppComponent implements OnInit, AfterViewInit { // Implemented AfterViewInit
-  @ViewChild(MatSort) sort!: MatSort; // Added ViewChild for MatSort
-
-  // This array defines the column definitions used for the actual data rows.
-  // These names map directly to the `matColumnDef` for data cells.
-  dataColumns: string[] = [
-    'contractWarranty_cell',
-    'cy25q1_cmHours_cell', 'cy25q1_cmHc_cell', 'cy25q1_pmHours_cell', 'cy25q1_pmHc_cell',
-    'cy25q2_cmHours_cell', 'cy25q2_cmHc_cell', 'cy25q2_pmHours_cell', 'cy25q2_pmHc_cell',
-    'cy25q3_cmHours_cell', 'cy25q3_cmHc_cell', 'cy25q3_pmHours_cell', 'cy25q3_pmHc_cell',
-    'cy25q4_cmHours_cell', 'cy25q4_cmHc_cell', 'cy25q4_pmHours_cell', 'cy25q4_pmHc_cell',
-  ];
-
-  // This array defines the columns for the *first* header row.
-  // 'contractWarrantyHeader' is the name of the matColumnDef for the rowspan header.
-  // 'cy25q1', 'cy25q2', etc. are the names of the matColumnDef for the colspan quarterly headers.
-  firstHeaderRowCols: string[] = ['contractWarrantyHeader', 'cy25q1', 'cy25q2', 'cy25q3', 'cy25q4'];
-
-  // This array defines the columns for the *second* header row.
-  // 'emptyHeaderForContractWarranty' is a placeholder for the space taken by the
-  // 'contractWarrantyHeader' in the first row.
-  // The rest are the individual sub-headers under each quarter.
-  secondHeaderRowCols: string[] = [
-    'emptyHeaderForContractWarranty', // This aligns the second header row correctly
-    'cy25q1_cmHours', 'cy25q1_cmHc', 'cy25q1_pmHours', 'cy25q1_pmHc',
-    'cy25q2_cmHours', 'cy25q2_cmHc', 'cy25q2_pmHours', 'cy25q2_pmHc',
-    'cy25q3_cmHours', 'cy25q3_cmHc', 'cy25q3_pmHours', 'cy25q3_pmHc',
-    'cy25q4_cmHours', 'cy25q4_cmHc', 'cy25q4_pmHours', 'cy25q4_pmHc',
-  ];
-
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
-
-  constructor() { }
-
-  ngOnInit(): void {
-    // Custom sorting accessor for nested properties
-    this.dataSource.sortingDataAccessor = (item: CertificationData, sortHeaderId: string): string | number => {
-      if (sortHeaderId.includes('_')) {
-        const parts = sortHeaderId.split('_');
-        const quarter = parts[0];
-        const property = parts.slice(1).join('_'); // Rejoin in case property name has underscores
-
-        // Access the nested property dynamically
-        if (item[quarter as keyof CertificationData] && typeof item[quarter as keyof CertificationData] === 'object') {
-          return (item[quarter as keyof CertificationData] as any)[property];
-        }
-      }
-      // For top-level properties like 'contractWarranty'
-      return (item as any)[sortHeaderId];
-    };
-  }
-
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-  }
+export class AppComponent { // Implemented AfterViewInit
 
 }

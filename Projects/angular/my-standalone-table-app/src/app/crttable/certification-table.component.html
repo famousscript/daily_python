@@ -1,0 +1,34 @@
+<table class="certification-table">
+ <thead>
+  <tr>
+   <th rowspan="2" class="contract-header">Contract/Warranty</th>
+   <ng-container *ngFor="let q of quarters">
+    <th class="quarter-header" colspan="4">{{ q }}</th>
+   </ng-container>
+  </tr>
+  <tr>
+   <ng-container *ngFor="let q of quarters">
+    <th class="sub-header">CM Hours</th>
+    <th class="sub-header">CM HC</th>
+    <th class="sub-header">PM Hours</th>
+    <th class="sub-header right-border">PM HC</th>
+   </ng-container>
+  </tr>
+ </thead>
+ <tbody>
+  <tr *ngFor="let row of contractWarranty">
+   <td class="contract-name">{{ row.cert }}</td>
+   <ng-container *ngFor="let q of quarters">
+    <ng-container *ngIf="getQuarterData(row, q) as data">
+     <td>{{ data.cmHours }}</td>
+     <td>{{ data.cmHC }}</td>
+     <td>{{ data.pmHours }}</td>
+     <td class="right-border">{{ data.pmHC }}</td>
+    </ng-container>
+    <ng-container *ngIf="!getQuarterData(row, q)">
+     <td colspan="4" class="right-border">--</td>
+    </ng-container>
+   </ng-container>
+  </tr>
+ </tbody>
+</table>
