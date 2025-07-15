@@ -199,4 +199,12 @@
 </div> -->
 
 
-<app-certification-table></app-certification-table>
+<!-- <app-certification-table></app-certification-table> -->
+
+<div style="margin-bottom: 20px;">
+  <button (click)="showComponent('A')">Show Component A</button>
+  <button (click)="showComponent('B')">Show Component B</button>
+</div>
+
+<app-component-a *ngIf="showA"></app-component-a>
+<app-component-b *ngIf="showB"></app-component-b>
