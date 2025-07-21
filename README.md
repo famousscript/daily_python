@@ -1,65 +1,38 @@
-azure-pipelines.yml
-
-# azure-pipelines.yml
-
 trigger:
-  branches:
-    include:
-      - main  # adjust if you're using a different default branch
+- main  # or your desired branch
 
 pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  nodeVersion: '20.x'
-  javaVersion: '17'
-  angularProjectPath: 'frontend'
-  mavenProjectPath: 'backend'
+  MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository
 
-stages:
-  - stage: Build
-    displayName: Build Stage
-    jobs:
-      - job: BuildJob
-        displayName: Build Angular & Maven Projects
-        steps:
+steps:
+- task: Checkout@1
+  displayName: 'Checkout Code'
 
-          # ✅ Checkout source code
-          - task: Checkout@1
+- task: JavaToolInstaller@0
+  inputs:
+    versionSpec: '11'  # Adjust to your Java version
+    jdkArchitectureOption: 'x64'
+    jdkSourceOption: 'PreInstalled'
 
-          # ✅ Set up Node.js for Angular
-          - task: UseNode@1
-            inputs:
-              version: $(nodeVersion)
+- task: Cache@2
+  inputs:
+    key: 'maven | "$(Agent.OS)" | **/pom.xml'
+    restoreKeys: |
+      maven | "$(Agent.OS)"
+    path: $(MAVEN_CACHE_FOLDER)
+  displayName: 'Cache Maven packages'
 
-          - script: |
-              npm install -g @angular/cli
-            displayName: 'Install Angular CLI'
+- script: |
+    echo "Setting MAVEN_OPTS and building"
+    export MAVEN_OPTS="-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)"
+    mvn clean install -Dmaven.repo.local=$(MAVEN_CACHE_FOLDER) -B
+  displayName: 'Build with Maven'
 
-          - script: |
-              cd $(angularProjectPath)
-              npm ci
-              ng build --configuration production
-            displayName: 'Build Angular App'
-
-          # ✅ Set up Java 17
-          - task: JavaToolInstaller@0
-            inputs:
-              versionSpec: $(javaVersion)
-              jdkArchitecture: 'x64'
-              jdkSourceOption: 'PreInstalled'
-
-          # ✅ Build Maven Project
-          - task: Maven@3
-            inputs:
-              mavenPomFile: '$(mavenProjectPath)/pom.xml'
-              goals: 'clean install'
-              options: '-X'
-              javaHomeOption: 'PreInstalled'
-              mavenVersionOption: 'Default'
-              publishJUnitResults: true
-              testResultsFiles: '**/surefire-reports/TEST-*.xml'
-              codeCoverageToolOption: 'None'
-
-
-
+- task: PublishTestResults@2
+  inputs:
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    testRunTitle: 'Maven Tests'
+  condition: succeededOrFailed()
