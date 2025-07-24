@@ -9,6 +9,7 @@ import { AfterViewInit } from '@angular/core';
 import { CertificationTableComponent } from "./crttable/certification-table.component";
 import { ComponentAComponent } from './component-a/component-a.component';
 import { ComponentBComponent } from './component-b/component-b.component';
+import { ManagerSidebarComponent } from "./manager-sidebar/manager-sidebar.component";
 
 
 
@@ -23,15 +24,14 @@ import { ComponentBComponent } from './component-b/component-b.component';
     MatSortModule,
     CertificationTableComponent,
     ComponentAComponent,
-    ComponentBComponent
+    ComponentBComponent,
+    ManagerSidebarComponent
   ]
 })
 export class AppComponent { // Implemented AfterViewInit
-  showA = true;
-  showB = false;
+  activeManager = 'Alice';
 
-  showComponent(component: 'A' | 'B') {
-    this.showA = component === 'A';
-    this.showB = component === 'B';
+  onNodeSelected(name: string) {
+    this.activeManager = name;
   }
 }

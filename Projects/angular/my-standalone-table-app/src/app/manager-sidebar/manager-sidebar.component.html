@@ -1,0 +1,24 @@
+<ul class="sidebar-tree">
+ <ng-container *ngFor="let manager of managerTree">
+  <li [class.active]="selectedName === manager.name" (click)="onSelect(manager.name)">
+   <span class="level-0">{{ manager.name }} <span class="role">({{ manager.title }})</span></span>
+  </li>
+
+  <ul *ngIf="manager.children">
+   <ng-container *ngFor="let child of manager.children">
+    <li [class.active]="selectedName === child.name" (click)="onSelect(child.name)">
+     <span class="level-1">{{ child.name }} <span class="role">({{ child.title }})</span></span>
+    </li>
+
+    <ul *ngIf="child.children">
+     <ng-container *ngFor="let sub of child.children">
+      <li [class.active]="selectedName === sub.name" (click)="onSelect(sub.name)">
+       <span class="level-2">{{ sub.name }} <span class="role">({{ sub.title }})</span></span>
+      </li>
+     </ng-container>
+    </ul>
+
+   </ng-container>
+  </ul>
+ </ng-container>
+</ul>

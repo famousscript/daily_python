@@ -22,3 +22,24 @@
  z-index: 1;
  /* Ensure it stays above other cells when scrolling horizontally */
 }
+
+
+.layout {
+ display: flex;
+ flex-direction: row;
+ height: 100vh;
+}
+
+.sidebar {
+ width: 250px;
+ background-color: #f4f4f4;
+ padding: 1rem;
+ border-right: 1px solid #ccc;
+ overflow-y: auto;
+}
+
+.main-content {
+ flex-grow: 1;
+ padding: 1rem;
+ overflow-x: auto;
+}
