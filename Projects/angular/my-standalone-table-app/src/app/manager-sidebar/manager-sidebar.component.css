@@ -3,9 +3,7 @@
  padding-left: 0;
  margin: 0;
  font-family: 'Segoe UI', sans-serif;
- background-color: #f9f9f9;
- height: 100vh;
- border-right: 1px solid #ccc;
+
 }
 
 .sidebar-tree li {
@@ -69,4 +67,89 @@
  border-left: 4px solid #1d4ed8;
  font-weight: bold;
  color: #1e3a8a;
+}
+
+/* Remove dots (default list-style) */
+ul {
+ list-style-type: none;
+ padding-left: 0;
+ margin-left: 0;
+}
+
+/* Remove extra indentation from nested lists */
+li {
+ padding: 4px 8px;
+ margin-left: 0;
+}
+
+/* Style different manager levels */
+li.manager {
+ font-weight: bold;
+ color: #003366;
+}
+
+li.sub-manager {
+ color: #333366;
+ font-style: italic;
+}
+
+li.sub-sub-manager {
+ color: #666;
+ font-size: 14px;
+}
+
+/* Optional: Add hover or selected effects */
+li:hover {
+ background-color: #e8f0ff;
+ cursor: pointer;
+}
+
+li.active {
+ background-color: #cce5ff;
+ font-weight: bold;
+}
+
+/* Base list styles */
+ul.sidebar-tree,
+ul.sidebar-tree ul {
+ list-style: none;
+ padding-left: 0;
+ margin: 0;
+}
+
+.sidebar-tree li {
+ margin: 2px 0;
+ padding: 4px 12px;
+ cursor: pointer;
+ border-radius: 6px;
+}
+
+/* Level-based styles (adjust indentation visually) */
+.level-0 {
+ font-weight: bold;
+ color: #003366;
+ margin-left: 0;
+}
+
+.level-1 {
+ color: #336699;
+ margin-left: 10px;
+ /* subtle indent */
+}
+
+.level-2 {
+ color: #666;
+ margin-left: 20px;
+}
+
+/* Active (selected) item */
+.sidebar-tree li.active {
+ background-color: #e3f2fd;
+ font-weight: 600;
+ color: #0d47a1;
+}
+
+/* Hover effect */
+.sidebar-tree li:hover {
+ background-color: #f1f8ff;
 }

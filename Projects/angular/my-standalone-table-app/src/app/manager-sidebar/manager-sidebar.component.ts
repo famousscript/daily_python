@@ -43,6 +43,16 @@ export class ManagerSidebarComponent {
   ];
   selectedName: string | null = null;
 
+  ngOnInit(): void {
+    // Auto-select the first manager
+    if (this.managerTree.length > 0) {
+      this.selectedName = this.managerTree[0].name;
+      this.selectNode.emit(this.selectedName);
+    }
+  }
+
+
+
   onSelect(name: string) {
     this.selectedName = name;
     this.selectNode.emit(name);
