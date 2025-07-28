@@ -3,7 +3,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 
 interface ManagerNode {
   name: string;
-  title: string;
+  empId: string;
   children?: ManagerNode[];
 }
 
@@ -15,51 +15,50 @@ interface ManagerNode {
   styleUrls: ['./manager-sidebar.component.scss']
 })
 export class ManagerSidebarComponent {
+
   @Output() selectNode = new EventEmitter<string>();
+  selectedEmpId: string = '';
 
   managerTree: ManagerNode[] = [
     {
-      name: 'Alice',
-      title: 'Manager',
+      name: 'Miller, Nick',
+      empId: 'B2333',
       children: [
+        { name: 'Vaughan, PJ', empId: '2007' },
+        { name: 'Noonan, Geoff', empId: '25204' },
         {
-          name: 'Bob',
-          title: 'Sub-Manager',
+          name: 'Chastain, Kevin',
+          empId: '26704',
           children: [
-            { name: 'Carol', title: 'Sub-Sub-Manager' },
-            { name: 'David', title: 'Sub-Sub-Manager' }
+            { name: 'Riese, Jeff', empId: '1206' },
+            { name: 'Kreimeyer, Emily', empId: '12279' },
+            { name: 'Proctor, Corey', empId: '18711' },
+            { name: 'Whelan, Dennis', empId: '40389' },
           ]
-        },
-        { name: 'Eve', title: 'Sub-Manager' }
+        }
       ]
     },
     {
-      name: 'Frank',
-      title: 'Manager',
+      name: 'Mindingall, Michael',
+      empId: '16350',
       children: [
-        { name: 'Grace', title: 'Sub-Manager' }
+        { name: 'Babaran, Ellis', empId: '14900' },
+        { name: 'Jaynes, John', empId: '16091' },
       ]
     }
   ];
-  selectedName: string | null = null;
 
-  ngOnInit(): void {
-    // Auto-select the first manager
-    if (this.managerTree.length > 0) {
-      this.selectedName = this.managerTree[0].name;
-      this.selectNode.emit(this.selectedName);
+  ngOnInit() {
+    const firstEmp = this.managerTree[0]?.empId;
+    if (firstEmp) {
+      this.selectedEmpId = firstEmp;
+      this.selectNode.emit(firstEmp);
     }
   }
 
-
-
-  onSelect(name: string) {
-    this.selectedName = name;
-    this.selectNode.emit(name);
+  onSelect(empId: string) {
+    this.selectedEmpId = empId;
+    this.selectNode.emit(empId);
   }
 
-  // onSelect(name: string): void {
-  //   this.selectedName = name;
-  //   this.selectedName = name;
-  // }
 }

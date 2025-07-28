@@ -1,24 +1,17 @@
 <ul class="sidebar-tree">
  <ng-container *ngFor="let manager of managerTree">
-  <!-- Top-level manager (no dash) -->
-  <li [class.active]="selectedName === manager.name" (click)="onSelect(manager.name)">
-   <span class="level-0">{{ manager.name }}</span>
+  <li [class.active]="selectedEmpId === manager.empId" (click)="onSelect(manager.empId)">
+   {{ manager.name }} ({{ manager.empId }})
   </li>
-
   <ul *ngIf="manager.children">
    <ng-container *ngFor="let child of manager.children">
-    <!-- First child level with dash -->
-    <li [class.active]="selectedName === child.name" (click)="onSelect(child.name)">
-     <span class="level-1">– {{ child.name }}</span>
+    <li [class.active]="selectedEmpId === child.empId" (click)="onSelect(child.empId)">
+     – {{ child.name }} ({{ child.empId }})
     </li>
-
     <ul *ngIf="child.children">
-     <ng-container *ngFor="let sub of child.children">
-      <!-- Second child level with double dash -->
-      <li [class.active]="selectedName === sub.name" (click)="onSelect(sub.name)">
-       <span class="level-2">–– {{ sub.name }}</span>
-      </li>
-     </ng-container>
+     <li *ngFor="let sub of child.children" [class.active]="selectedEmpId === sub.empId" (click)="onSelect(sub.empId)">
+      — {{ sub.name }} ({{ sub.empId }})
+     </li>
     </ul>
    </ng-container>
   </ul>
