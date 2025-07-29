@@ -1,14 +1,26 @@
 <ul class="sidebar-tree">
  <ng-container *ngFor="let manager of managerTree">
-  <li [class.active]="selectedEmpId === manager.empId" (click)="onSelect(manager.empId)">
-   {{ manager.name }} ({{ manager.empId }})
+  <li [class.active]="selectedEmpId === manager.empId">
+   <mat-icon *ngIf="manager.children" (click)="toggleExpand(manager, $event)" class="arrow">
+    {{ manager.expanded ? 'expand_more' : 'chevron_right' }}
+   </mat-icon>
+   <span (click)="onSelect(manager.empId)">
+    {{ manager.name }} ({{ manager.empId }})
+   </span>
   </li>
-  <ul *ngIf="manager.children">
+
+  <ul *ngIf="manager.expanded && manager.children">
    <ng-container *ngFor="let child of manager.children">
-    <li [class.active]="selectedEmpId === child.empId" (click)="onSelect(child.empId)">
-     – {{ child.name }} ({{ child.empId }})
+    <li [class.active]="selectedEmpId === child.empId">
+     <mat-icon *ngIf="child.children" (click)="toggleExpand(child, $event)" class="arrow">
+      {{ child.expanded ? 'expand_more' : 'chevron_right' }}
+     </mat-icon>
+     <span (click)="onSelect(child.empId)">
+      – {{ child.name }} ({{ child.empId }})
+     </span>
     </li>
-    <ul *ngIf="child.children">
+
+    <ul *ngIf="child.expanded && child.children">
      <li *ngFor="let sub of child.children" [class.active]="selectedEmpId === sub.empId" (click)="onSelect(sub.empId)">
       — {{ sub.name }} ({{ sub.empId }})
      </li>
