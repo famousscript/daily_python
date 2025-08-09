@@ -43,3 +43,51 @@
  padding: 1rem;
  overflow-x: auto;
 }
+
+
+
+.container {
+ display: flex;
+ height: 100vh;
+ /* Full screen height */
+}
+
+.sidebar {
+ width: 40%;
+ border-right: 1px solid #ddd;
+ padding: 10px;
+ box-sizing: border-box;
+ overflow-y: auto;
+}
+
+.main-content {
+ width: 60%;
+ padding: 20px;
+ box-sizing: border-box;
+}
+
+
+
+.layout {
+ display: flex;
+ height: 100vh;
+ /* full height */
+}
+
+.sidebar {
+ flex: 0 0 40%;
+ /* fixed 40% width */
+ max-width: 40%;
+ background-color: #f5f5f5;
+ border-right: 1px solid #ddd;
+ padding: 10px;
+ overflow-y: auto;
+ box-sizing: border-box;
+}
+
+.main-content {
+ flex: 1;
+ /* take remaining 60% */
+ padding: 20px;
+ box-sizing: border-box;
+}

@@ -1,8 +1,11 @@
 <div class="layout">
   <div class="sidebar">
-    <app-sidebar (selectNode)="onNodeSelected($event)"></app-sidebar>
+    <app-manager-search (search)="filterManagers($event)"></app-manager-search>
+    <app-manager-list [managers]="filteredManagers"></app-manager-list>
   </div>
+
   <div class="main-content">
-    <app-certification-table [selectedManager]="activeManager"></app-certification-table>
+    <h2>Main Content</h2>
+    <p>Details appear here...</p>
   </div>
 </div>

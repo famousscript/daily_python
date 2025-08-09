@@ -1,76 +1,112 @@
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-
-import { MatIconModule } from '@angular/material/icon';
+// import { ManagerNode } from './app.component';
 
 interface ManagerNode {
   name: string;
-  empId: string;
   expanded?: boolean;
   children?: ManagerNode[];
 }
 
 @Component({
-  selector: 'app-sidebar',
+  selector: 'app-manager-sidebar',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
-  templateUrl: './manager-sidebar.component.html',
-  styleUrls: ['./manager-sidebar.component.scss']
+  imports: [CommonModule],
+  template: `
+    <div class="sidebar">
+      <div *ngFor="let manager of managers" class="manager-container">
+        <div 
+          class="manager" 
+          [class.active]="activeParent === manager"
+          (click)="onParentClick(manager)"
+        >
+          <span class="arrow" (click)="toggleExpand(manager, $event)">
+            {{ manager.expanded ? '▼' : '▶' }}
+          </span>
+          {{ manager.name }}
+        </div>
+        <div *ngIf="manager.expanded" class="children">
+          <div 
+            *ngFor="let child of manager.children" 
+            class="child" 
+            [class.active]="activeChild === child"
+            (click)="onChildClick(child, $event)"
+          >
+            {{ child.name }}
+          </div>
+        </div>
+      </div>
+    </div>
+  `,
+  styles: [`
+    .sidebar {
+      width: 40vw;
+      height: 100vh;
+      background: #f9f9f9;
+      border-right: 1px solid #ddd;
+      overflow-y: auto;
+      padding: 8px;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+    .manager-container {
+      margin-bottom: 6px;
+    }
+    .manager {
+      padding: 8px;
+      cursor: pointer;
+      user-select: none;
+      border-radius: 4px;
+    }
+    .manager.active {
+      background-color: #d0e7ff;
+    }
+    .arrow {
+      display: inline-block;
+      width: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+      margin-right: 6px;
+    }
+    .children {
+      padding-left: 28px;
+      margin-top: 4px;
+    }
+    .child {
+      padding: 4px 8px;
+      cursor: pointer;
+      user-select: none;
+      border-radius: 4px;
+    }
+    .child.active {
+      background-color: #f0ffd0;
+    }
+  `]
 })
-export class ManagerSidebarComponent implements OnInit {
+export class ManagerSidebarComponent {
+  @Input() managers: ManagerNode[] = [];
+  @Output() parentClick = new EventEmitter<ManagerNode>();
+  @Output() childClick = new EventEmitter<ManagerNode>();
 
-  @Output() selectNode = new EventEmitter<string>();
-  selectedEmpId: string = '';
+  activeParent: ManagerNode | null = null;
+  activeChild: ManagerNode | null = null;
 
-  managerTree: ManagerNode[] = [
-    {
-      name: 'Miller, Nick',
-      empId: 'B2333',
-      expanded: true,
-      children: [
-        { name: 'Vaughan, PJ', empId: '2007' },
-        { name: 'Noonan, Geoff', empId: '25204' },
-        {
-          name: 'Chastain, Kevin',
-          empId: '26704',
-          expanded: false,
-          children: [
-            { name: 'Riese, Jeff', empId: '1206' },
-            { name: 'Kreimeyer, Emily', empId: '12279' },
-            { name: 'Proctor, Corey', empId: '18711' },
-            { name: 'Whelan, Dennis', empId: '40389' },
-          ]
-        }
-      ]
-    },
-    {
-      name: 'Mindingall, Michael',
-      empId: '16350',
-      expanded: false,
-      children: [
-        { name: 'Babaran, Ellis', empId: '14900' },
-        { name: 'Jaynes, John', empId: '16091' }
-      ]
-    }
-  ];
-
-
-  ngOnInit() {
-    const firstEmp = this.managerTree[0]?.empId;
-    if (firstEmp) {
-      this.selectedEmpId = firstEmp;
-      this.selectNode.emit(firstEmp);
-    }
+  toggleExpand(manager: ManagerNode, event: MouseEvent) {
+    event.stopPropagation();
+    manager.expanded = !manager.expanded;
   }
 
-  onSelect(empId: string) {
-    this.selectedEmpId = empId;
-    this.selectNode.emit(empId);
+  onParentClick(manager: ManagerNode) {
+    this.activeParent = manager;
+    this.activeChild = null;
+    this.parentClick.emit(manager);
   }
 
-  toggleExpand(node: ManagerNode, event: MouseEvent) {
-    node.expanded = !node.expanded;
-    event.stopPropagation(); // prevent triggering onSelect
+  onChildClick(child: ManagerNode, event: MouseEvent) {
+    event.stopPropagation();
+    this.activeChild = child;
+    this.activeParent = null;
+    this.childClick.emit(child);
   }
-
 }

@@ -1,155 +1,74 @@
-.sidebar-tree {
- list-style: none;
- padding-left: 0;
- margin: 0;
- font-family: 'Segoe UI', sans-serif;
-
+.sidebar {
+ width: 40%;
+ background-color: #f9f9f9;
+ border-right: 1px solid #ddd;
+ height: 77vh;
+ overflow-y: scroll;
+ padding: 8px;
+ font-family: Arial, sans-serif;
 }
 
-.sidebar-tree li {
- cursor: pointer;
- padding: 8px 16px;
- border-left: 3px solid transparent;
- transition: background-color 0.2s ease;
-}
-
-.sidebar-tree li:hover {
- background-color: #e8f0fe;
-}
-
-.sidebar-tree li.active {
- background-color: #d2e3fc;
- border-left: 3px solid #1a73e8;
- font-weight: bold;
-}
-
-.role {
- font-size: 0.85em;
- color: #888;
-}
-
-/* 👤 Manager style */
-.level-0 {
- font-weight: bold;
- font-size: 16px;
- color: #1a1a1a;
-}
-
-/* 🧑‍💼 Sub-Manager style */
-.level-1 {
- font-weight: 500;
- font-size: 15px;
- color: #333;
- padding-left: 20px;
-}
-
-/* 👶 Sub-Sub-Manager style */
-.level-2 {
- font-weight: normal;
- font-size: 14px;
- color: #555;
- padding-left: 40px;
-}
-
-.sidebar-tree li {
- cursor: pointer;
- padding: 8px 16px;
- transition: background-color 0.2s ease;
- border-left: 3px solid transparent;
-}
-
-.sidebar-tree li:hover {
- background-color: #f0f4ff;
-}
-
-.sidebar-tree li.active {
- background-color: #dbeafe;
- border-left: 4px solid #1d4ed8;
- font-weight: bold;
- color: #1e3a8a;
-}
-
-/* Remove dots (default list-style) */
-ul {
- list-style-type: none;
- padding-left: 0;
- margin-left: 0;
-}
-
-/* Remove extra indentation from nested lists */
-li {
- padding: 4px 8px;
- margin-left: 0;
-}
-
-/* Style different manager levels */
-li.manager {
- font-weight: bold;
- color: #003366;
-}
-
-li.sub-manager {
- color: #333366;
- font-style: italic;
-}
-
-li.sub-sub-manager {
- color: #666;
- font-size: 14px;
-}
-
-/* Optional: Add hover or selected effects */
-li:hover {
- background-color: #e8f0ff;
+.parent-row {
+ display: flex;
+ align-items: center;
+ padding: 6px;
  cursor: pointer;
 }
 
-li.active {
- background-color: #cce5ff;
- font-weight: bold;
-}
-
-/* Base list styles */
-ul.sidebar-tree,
-ul.sidebar-tree ul {
- list-style: none;
- padding-left: 0;
- margin: 0;
-}
-
-.sidebar-tree li {
- margin: 2px 0;
- padding: 4px 12px;
+.arrow {
+ width: 20px;
+ text-align: center;
  cursor: pointer;
- border-radius: 6px;
-}
-
-/* Level-based styles (adjust indentation visually) */
-.level-0 {
+ margin-right: 6px;
  font-weight: bold;
- color: #003366;
- margin-left: 0;
 }
 
-.level-1 {
- color: #336699;
- margin-left: 10px;
- /* subtle indent */
+.name {
+ flex: 1;
 }
 
-.level-2 {
- color: #666;
- margin-left: 20px;
+.child-row {
+ padding: 6px 30px;
+ cursor: pointer;
 }
 
-/* Active (selected) item */
-.sidebar-tree li.active {
- background-color: #e3f2fd;
- font-weight: 600;
- color: #0d47a1;
+.parent-row:hover,
+.child-row:hover {
+ background-color: #1976d2;
 }
 
-/* Hover effect */
-.sidebar-tree li:hover {
- background-color: #f1f8ff;
+.active {
+ background-color: #1976d2;
+ color: white;
+}
+
+
+.sidebar {
+ width: 40%;
+ background-color: #f9f9f9;
+ border-right: 1px solid #ddd;
+ height: 77vh;
+ /* fixed height */
+ overflow-y: auto;
+ /* only shows scroll when needed */
+ padding: 8px;
+ font-family: Arial, sans-serif;
+ scrollbar-width: thin;
+ /* Firefox */
+ scrollbar-color: #ccc #f9f9f9;
+ /* Firefox */
+}
+
+/* For Chrome, Edge, Safari */
+.sidebar::-webkit-scrollbar {
+ width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+ background: #ccc;
+ border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+ background: #f9f9f9;
 }
