@@ -1,0 +1,39 @@
+<div class="chat-layout">
+ <!-- LEFT: Chat Window -->
+ <div class="chat-window">
+  <!-- Predefined Questions -->
+  <div class="predefined-container">
+   <h4>Suggested Questions</h4>
+   <div class="question-buttons">
+    <button *ngFor="let q of predefinedQuestions" (click)="userInput = q">
+     {{ q }}
+    </button>
+   </div>
+  </div>
+
+  <!-- Chat Area -->
+  <div class="chat-box">
+   <div *ngFor="let msg of activeSession.messages">
+    <div [ngClass]="msg.type">{{ msg.message }}</div>
+   </div>
+  </div>
+
+  <!-- Input Area -->
+  <div class="input-area">
+   <input [(ngModel)]="userInput" (keyup.enter)="sendMessage()" placeholder="Type your message..." />
+   <button (click)="sendMessage()">Send</button>
+  </div>
+
+  <!-- Start New Chat -->
+  <button class="new-session-btn" (click)="startNewSession()">➕ New Chat</button>
+ </div>
+
+ <!-- RIGHT: Chat History -->
+ <div class="chat-history">
+  <h4>Chat History</h4>
+  <div *ngFor="let session of chatSessions" (click)="selectSession(session.id)"
+   [class.active]="session.id === activeSessionId">
+   {{ session.date }} - Chat {{ session.id + 1 }}
+  </div>
+ </div>
+</div>

@@ -24,4 +24,9 @@ export class ManagerSearchComponent {
   onSearch() {
     this.search.emit(this.query);
   }
+
+  onInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.search.emit(input.value);
+  }
 }
